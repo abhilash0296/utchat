@@ -1,0 +1,19 @@
+<%= link_to 'Back', chats_path(current_user), :class => 'btn btn-default' %>
+<div class="row">
+ You are chatting with <%= @conversation.opposed_user(current_user).email %>
+</div>
+<div class="panel">
+<% @messages.each do |message| %>
+<div class="row">
+	<div class="<%= current_user.id == message.user_id ? 'message-sent' : 'message-received' %>"> <%= message.body%> 
+	</div>
+</div>
+<% end %>
+<%= form_for :message, :url => { :action => "create_message" } ,  :html => {:class => "form-inline"} do |f| %>
+	<%= f.hidden_field :user_id, value: current_user.id , class: "form-control"%>
+	<%= f.hidden_field :id, value: @conversation.opposed_user(current_user).id, class: "form-control" %> 
+  <%= f.text_area :body, class: "form-control" %>
+  <%= f.submit 'send', class: "btn btn-primary" %>
+<% end %>
+</div>
+

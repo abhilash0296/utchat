@@ -1,0 +1,9 @@
+<%= form_for :message, :url => { :action => "create_message" }, :html => {:class => "form-horizontal"} do |f| %>
+	<div class="form-group"><%= f.hidden_field :user_id, value: current_user.id, class: "form-control" %></div>
+	<div class="form-group">
+		<%= f.label 'To - ' %>
+		<%= f.collection_select :id, @users, :id, :email, class: "form-control"%> </div>
+ 	<div class="form-group"> <%= f.label :body %>
+  <%= f.text_area :body, class: "form-control" %></div>
+  <%= f.submit 'send', class: "btn btn-default"%>
+<% end %>

@@ -1,0 +1,15 @@
+<%= link_to 'create new chat', create_chat_path(current_user), :class => 'btn btn-default' %>
+
+<div class="row">
+		<ul id="conversations-list">
+			<% @conversations.each do |conversation| %>			
+			  <% if conversation.sender_id == current_user.id || conversation.recipient_id == current_user.id %>
+		 			<li>
+		 			  <div data-conversation-id="<%= conversation.id %>">
+		 			      <%= link_to conversation.opposed_user(current_user).email, show_chat_path(current_user, conversation.id) %>
+		 			  </div>
+		 			</li>
+			  <% end %>
+			<% end %>
+		</ul>
+</div>
